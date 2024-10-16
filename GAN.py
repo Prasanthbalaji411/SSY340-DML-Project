@@ -7,6 +7,7 @@ import torchvision.utils as vutils
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 imageSize = 128
 batchSize = 32  #images per batch
 nEpochs = 1  
@@ -16,22 +17,17 @@ nGenFilters= 32  # Number of generator filters
 nDiscFilters = 32  # Number of discriminator filters
 nImages = 10
 
-# Transformations for input images
-transform = transforms.Compose([
-    transforms.Resize(imageSize),
-    transforms.ToTensor(),
-    transforms.Normalize([0.5], [0.5])
-])
 
 transform = transforms.ToTensor() #Remove
 
 ############################################# IMPORT DATASET ##########################################
 
-# TODO change dataset
-dataset = datasets.CIFAR10(root="./data", download=False, transform=transform)
 
-#make subset for bugfix
-dataset = [dataset[i] for i in range(nImages)]
+# subset of test dataset
+#dataset = datasets.CIFAR10(root="./data", download=False, transform=transform)
+#dataset = [dataset[i] for i in range(nImages)]
+
+
 dataloader = torch.utils.data.DataLoader(dataset, batch_size=batchSize, shuffle=True)
 
 
