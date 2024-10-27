@@ -10,9 +10,9 @@ from sklearn.metrics import f1_score
 import matplotlib.pyplot as plt
 
 # load ResNet
-model = models.resnet50(pretrained=True)
+model = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
 
-num_classes = 49 # 49 classes = car brands
+num_classes = 10 # 10 classes = car brands
 model.fc = torch.nn.Linear(model.fc.in_features, num_classes)
 
 # freeze all layers except last
@@ -29,15 +29,11 @@ transform = transforms.Compose([
 ])
 
 # load data
-trainDataset = datasets.ImageFolder(root='cars_sorted/train', transform=transform)
+trainDataset = datasets.ImageFolder(root='cars_aug/train', transform=transform)
 trainLoader = DataLoader(trainDataset, batch_size=32, shuffle=True)
 
-nTestImages = 1000 
-testDataset = datasets.ImageFolder(root='cars_sorted/test', transform=transform)
-testDataset = [testDataset[i] for i in range(nTestImages)]
+testDataset = datasets.ImageFolder(root='cars_aug/test', transform=transform)
 testLoader = DataLoader(testDataset, batch_size=32, shuffle=True)
-
-    
 
 
 # Training
